@@ -23,13 +23,19 @@ public class AuthenticationFilter implements Filter {
         String requestURI = httpRequest.getRequestURI();
 
         // 允许访问的URL列表
-        String[] allowedURIs = {"/login.jsp", "/LoginServlet", "/register.jsp", "/register", "/updateuser.jsp", "/UpdateUserServlet", "/LogOutServlet", "/error.jsp","/css/*"};
+        String[] allowedURIs = {"/login.jsp", "/LoginServlet", "/register.jsp", "/register", "/updateuser.jsp", "/UpdateUserServlet", "/LogOutServlet", "/error.jsp"};
 
         boolean allowedRequest = false;
-        for (String uri : allowedURIs) {
-            if (requestURI.endsWith(uri)) {
-                allowedRequest = true;
-                break;
+
+        // 检查是否是CSS文件
+        if (requestURI.endsWith(".css")) {
+            allowedRequest = true;
+        } else {
+            for (String uri : allowedURIs) {
+                if (requestURI.endsWith(uri)) {
+                    allowedRequest = true;
+                    break;
+                }
             }
         }
 
