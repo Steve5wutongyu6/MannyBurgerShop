@@ -101,5 +101,51 @@ public class ProductDAO {
     }
 
 
+    public List<Product> getProductsByCidAndPage(int cid, int pageNo, int pageSize) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from product where cid=? limit ? offset ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cid);
+            pstmt.setInt(2, pageSize);
+            pstmt.setInt(3, (pageNo - 1) * pageSize);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setPid(rs.getInt("pid"));
+                    product.setPname(rs.getString("pname"));
+                    product.setMarketPrice(rs.getDouble("market_price"));
+                    product.setShopPrice(rs.getDouble("shop_price"));
+                    product.setPimage(rs.getString("pimage"));
+                    product.setPdate(rs.getString("pdate"));
+                    product.setIsHot(rs.getInt("is_hot"));
+                    product.setPdesc(rs.getString("pdesc"));
+                    product.setPflag(rs.getInt("pflag"));
+                    product.setCid(rs.getString("cid"));
 
+                    productList.add(product);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    public int getTotalProductsByCid(int cid) {
+        int count = 0;
+        String sql = "select count(*) as total from product where cid=?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cid);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

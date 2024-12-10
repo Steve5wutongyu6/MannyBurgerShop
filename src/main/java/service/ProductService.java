@@ -63,4 +63,12 @@ public class ProductService {
         }
         return product;
     }
+
+    public List<Product> getProductsByCidAndPage(int cid, int pageNo, int pageSize) {
+        return productDAO.getProductsByCidAndPage(cid, pageNo, pageSize);
+    }
+
+    public int getTotalProductsByCid(int cid) {
+        return productDAO.getTotalProductsByCid(cid);
+    }
 }
