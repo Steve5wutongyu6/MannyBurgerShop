@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Steve
@@ -14,7 +15,7 @@
 </head>
 <body>
 <c:set var="user" value="${user}" scope="request"/>
-<form action="updateUser" method="post">
+<form action="updateUser" method="post" enctype="multipart/form-data">
   <h2>${empty user ? '用户注册' : '用户信息修改'}</h2>
   用户名: <input type="text" name="username" value="${user.username}" required><br/>
   密码: <input type="password" name="password" value="${user.password}" required><br/>
@@ -25,6 +26,10 @@
   性别:
   <input type="radio" name="sex" value="1" ${user.sex == '1' ? 'checked' : ''}>男
   <input type="radio" name="sex" value="0" ${user.sex == '0' ? 'checked' : ''}>女<br/>
+  头像: <input type="file" name="photo"><br/>
+  <c:if test="${not empty user.photo}">
+    <img src="${user.photo}" alt="用户头像" width="100" height="100"><br/>
+  </c:if>
   <input type="submit" value="${empty user ? '注册' : '修改'}">
 </form>
 <c:if test="${not empty message}">
