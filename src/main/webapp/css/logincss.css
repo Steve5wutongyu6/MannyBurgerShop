@@ -67,6 +67,7 @@ input[type="submit"] {
 
 #button-group {
     display: flex;
+
     input[type="button"] {
         width: 100%;
         align-content: center;

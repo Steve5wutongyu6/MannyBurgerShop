@@ -1,8 +1,8 @@
 package action;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "LogOutServlet", value = "/LogOutServlet")

@@ -1,42 +1,36 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.UUID;
-
 import bean.User;
 import utils.DBUtil;
+
+import java.sql.*;
 
 public class UserDao {
 
     Connection conn;
     Statement stmt;
     ResultSet rs;
-    User findu=null;
+    User findu = null;
 
     // 通过用户名查询用户信息，并返回用户信息findu，findu为User类型
     public User selectUserByName(User u) {
         try {
             conn = DBUtil.getConnection();
-            stmt=conn.createStatement();
-            String sql="SELECT * FROM user WHERE username='"+u.getUsername()+"'";
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM user WHERE username='" + u.getUsername() + "'";
             System.out.println(sql);
-            rs=stmt.executeQuery(sql);
-            if(rs.next()) {
-                String uid=rs.getString("uid");
-                String username=rs.getString("username");
-                String password=rs.getString("password");
-                String email=rs.getString("email");
-                String name=rs.getString("name");
-                String sex=rs.getString("sex");
-                Date birthday=rs.getDate("birthday");
-                String telephone=rs.getString("telephone");
-                String photo=rs.getString("photo");
-                findu=new User();
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                String uid = rs.getString("uid");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String sex = rs.getString("sex");
+                Date birthday = rs.getDate("birthday");
+                String telephone = rs.getString("telephone");
+                String photo = rs.getString("photo");
+                findu = new User();
                 findu.setUid(uid);
                 findu.setUsername(username);
                 findu.setPassword(password);
@@ -48,7 +42,7 @@ public class UserDao {
                 findu.setPhoto(photo);
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DBUtil.close(conn, stmt, rs);
@@ -77,6 +71,7 @@ public class UserDao {
             ps.setInt(9, user.getState());
 
             int rows = ps.executeUpdate();
+
             return rows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +99,7 @@ public class UserDao {
             pstmt.setString(7, user.getUsername());
 
             int rowsAffected = pstmt.executeUpdate();
-            System.out.println("更新行数: " + rowsAffected);
+            System.out.println("更新行数: " + rowsAffected + pstmt);
             return rowsAffected > 0; // 返回是否更新成功
         } catch (SQLException e) {
             System.out.println("SQL 异常: " + e.getMessage());

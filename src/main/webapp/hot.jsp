@@ -21,10 +21,18 @@
         <h1>热门菜品</h1>
     </div>
     <div class="menu-tabs">
-        <button class="<c:if test='${activeCid == 1}'>active</c:if>" onclick="location.href='SelectProductByCidServlet?cid=1'">汉堡</button>
-        <button class="<c:if test='${activeCid == 2}'>active</c:if>" onclick="location.href='SelectProductByCidServlet?cid=2'">鸡翅</button>
-        <button class="<c:if test='${activeCid == 3}'>active</c:if>" onclick="location.href='SelectProductByCidServlet?cid=3'">薯条</button>
-        <button class="<c:if test='${activeCid == 4}'>active</c:if>" onclick="location.href='SelectProductByCidServlet?cid=4'">饮料</button>
+        <button class="<c:if test='${activeCid == 1}'>active</c:if>"
+                onclick="location.href='SelectProductByCidServlet?cid=1'">汉堡
+        </button>
+        <button class="<c:if test='${activeCid == 2}'>active</c:if>"
+                onclick="location.href='SelectProductByCidServlet?cid=2'">鸡翅
+        </button>
+        <button class="<c:if test='${activeCid == 3}'>active</c:if>"
+                onclick="location.href='SelectProductByCidServlet?cid=3'">薯条
+        </button>
+        <button class="<c:if test='${activeCid == 4}'>active</c:if>"
+                onclick="location.href='SelectProductByCidServlet?cid=4'">饮料
+        </button>
     </div>
     <div class="menu-items">
         <c:forEach var="product" items="${hotProducts}">

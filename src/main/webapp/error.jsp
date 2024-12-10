@@ -12,13 +12,13 @@
     <title>Error Page</title>
 </head>
 <body>
-    <h2>An error occurred:</h2>
-    <p><strong>Status Code:</strong> ${statusCode}</p>
-    <p><strong>Requested URI:</strong> ${requestUri}</p>
-    <p><strong>Servlet Name:</strong> ${servletName}</p>
-    <p><strong>Exception Message:</strong> ${throwable.message}</p>
-    <p><strong>Stack Trace:</strong></p>
-    <pre>${throwable.stackTrace}</pre>
+<h2>An error occurred:</h2>
+<p><strong>Status Code:</strong> ${statusCode}</p>
+<p><strong>Requested URI:</strong> ${requestUri}</p>
+<p><strong>Servlet Name:</strong> ${servletName}</p>
+<p><strong>Exception Message:</strong> ${throwable.message}</p>
+<p><strong>Stack Trace:</strong></p>
+<pre>${throwable.stackTrace}</pre>
 </body>
 </html>
 

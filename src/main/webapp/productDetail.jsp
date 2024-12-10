@@ -20,12 +20,17 @@
         <h1>商品详情</h1>
     </div>
     <div class="product-detail">
-        <c:set var="product" value="${product}" />
+        <c:set var="product" value="${product}"/>
         <img src="${product.pimage}" alt="${product.pname}">
         <h2>${product.pname}</h2>
         <p>市场价: ${product.marketPrice}</p>
         <p>现价: ${product.shopPrice}</p>
         <p>描述: ${product.pdesc}</p>
+        <form action="AddToCartServlet" method="post">
+            <input type="hidden" name="pid" value="${product.pid}">
+            <input type="hidden" name="uid" value="${sessionScope.user.uid}"> <!-- 假设用户ID存储在session中 -->
+            <button type="submit">加入购物车</button>
+        </form>
         <a href="SelectProductByCidServlet">返回菜单</a>
     </div>
 </div>

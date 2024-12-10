@@ -9,6 +9,26 @@ import java.util.List;
 
 public class ProductDAO {
 
+    public static Product getProductById(int pid) {
+        Product product = null;
+        String sql = "SELECT * FROM product WHERE pid=?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, pid);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    product = new Product();
+                    product.setPid(rs.getInt("pid"));
+                    product.setPname(rs.getString("pname"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return product;
+    }
+
     // 获取所有商品
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
@@ -19,9 +39,11 @@ public class ProductDAO {
     public List<Product> getProductsByCid(int cid) {
         List<Product> productList = new ArrayList<>();
         String sql = "select * from product where is_hot=1 and cid=? limit 4";
+
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, cid);
+            System.out.println(pstmt);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Product product = new Product();
@@ -44,34 +66,6 @@ public class ProductDAO {
         }
         return productList;
     }
-/*
-    // 热门汉堡
-    public List<Product> getHotHamburgerProducts() {
-        List<Product> productList = new ArrayList<>();
-        String sql = "select * from product where is_hot=1 and cid=1 limit 4";
-        return getProducts(productList, sql);
-    }
-
-    // 热门鸡
-    public List<Product> getHotChickensProducts() {
-        List<Product> productList = new ArrayList<>();
-        String sql = "select * from product where is_hot=1 and cid=2 limit 4";
-        return getProducts(productList, sql);
-    }
-
-    // 热门薯条
-    public List<Product> getHotChipsProducts() {
-        List<Product> productsList = new ArrayList<>();
-        String sql = "select * from product where is_hot=1 and cid=3 limit 4";
-        return getProducts(productsList, sql);
-    }
-
-    // 热门饮料
-    public List<Product> getHotDrinksProducts() {
-        List<Product> productsList = new ArrayList<>();
-        String sql = "select * from product where is_hot=1 and cid=4 limit 4";
-        return getProducts(productsList, sql);
-    }*/
 
     // 获取商品详情
     private List<Product> getProducts(List<Product> productList, String sql) {
@@ -109,6 +103,7 @@ public class ProductDAO {
             pstmt.setInt(1, cid);
             pstmt.setInt(2, pageSize);
             pstmt.setInt(3, (pageNo - 1) * pageSize);
+            System.out.println(pstmt);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Product product = new Product();
@@ -138,6 +133,7 @@ public class ProductDAO {
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, cid);
+            System.out.println(pstmt);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt("total");

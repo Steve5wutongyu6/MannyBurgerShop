@@ -3,9 +3,9 @@ package action;
 import bean.User;
 import utils.DBUtil;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
