@@ -3,12 +3,20 @@ package bean;
 import java.sql.Time;
 
 public class Cart {
-    private int cid, oid,pid;
+    private int cid, oid, pid;
     private String uid;
     private Time time;
 
     public Cart() {
         super();
+    }
+
+    public Cart(int cid, int oid, int pid, String uid, Time time) {
+        this.cid = cid;
+        this.oid = oid;
+        this.pid = pid;
+        this.uid = uid;
+        this.time = time;
     }
 
     @Override
@@ -59,14 +67,6 @@ public class Cart {
     }
 
     public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public Cart(int cid, int oid, int pid, String uid, Time time) {
-        this.cid = cid;
-        this.oid = oid;
-        this.pid = pid;
-        this.uid = uid;
         this.time = time;
     }
 }

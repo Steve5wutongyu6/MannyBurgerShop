@@ -86,6 +86,7 @@ public class LoginServlet extends HttpServlet {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             rs = pstmt.executeQuery();
+            System.out.println(pstmt);
 
             if (rs.next()) {
                 // 登录成功
@@ -100,6 +101,7 @@ public class LoginServlet extends HttpServlet {
                 user.setBirthday(rs.getDate("birthday"));
                 user.setSex(rs.getString("sex"));
                 user.setState(rs.getInt("state"));
+                user.setPhoto_path(rs.getString("photo_path"));
                 System.out.println("user: " + user);
 
                 session.setAttribute("user", user);
@@ -107,14 +109,17 @@ public class LoginServlet extends HttpServlet {
                 // 创建cookie
                 Cookie usernameCookie = new Cookie("username", user.getUsername());
                 usernameCookie.setMaxAge(30 * 60); // 设置Cookie过期时间为30分钟
+                System.out.println("usernameCookie: " + usernameCookie);
                 response.addCookie(usernameCookie);
 
 
                 Cookie tokenCookie = new Cookie("token", user.getUsername()); // 登陆令牌
                 tokenCookie.setMaxAge(30 * 60);
+                System.out.println("tokenCookie: " + tokenCookie);
                 response.addCookie(tokenCookie);
 
                 response.sendRedirect("MenuServlet");
+                System.out.println("登录成功"+"重定向到MenuServlet");
             } else {
                 // 登录失败
                 request.setAttribute("message", "Invalid username or password.");

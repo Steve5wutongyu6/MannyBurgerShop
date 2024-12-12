@@ -95,7 +95,7 @@ public class UpdateUserServlet extends HttpServlet {
                 user.setTelephone(telephone);
                 user.setSex(sex);
                 user.setBirthday(birthday);
-                user.setPhoto(photoPath); // 设置图片路径
+                user.setPhoto_path(photoPath); // 设置图片路径
 
                 UserDao userDao = new UserDao();
                 boolean isUpdated = userDao.updateUser(user);

@@ -11,12 +11,11 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 10/12/2024 17:18:50
+ Date: 12/12/2024 13:18:43
 */
 
 SET NAMES utf8mb4;
-SET
-FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for cart
@@ -24,16 +23,26 @@ FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`
 (
-    `cid`  int NOT NULL COMMENT '购物车列表ID',
+    `cid`  int                                                           NOT NULL AUTO_INCREMENT,
     `uid`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '下单用户ID',
-    `oid`  int NULL DEFAULT NULL COMMENT '对应orderItemID',
-    `time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`cid` DESC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+    `oid`  int                                                           NULL DEFAULT NULL COMMENT '对应orderItemID',
+    `time` datetime                                                      NULL DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`cid`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
+INSERT INTO `cart`
+VALUES (1, '1', 1, '2024-12-10 17:52:35');
+INSERT INTO `cart`
+VALUES (2, '8800D33E3E7048A09BA78BAD5CBD5970', 2, '2024-12-10 18:01:35');
+INSERT INTO `cart`
+VALUES (3, '1', NULL, '2024-12-10 18:01:35');
 
 -- ----------------------------
 -- Table structure for category
@@ -44,7 +53,10 @@ CREATE TABLE `category`
     `cid`   varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
     `cname` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`cid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -64,15 +76,31 @@ VALUES ('4', '饮品');
 DROP TABLE IF EXISTS `orderitem`;
 CREATE TABLE `orderitem`
 (
-    `oid` int NOT NULL,
-    `pid` int NULL DEFAULT NULL,
+    `oid` int                                                           NOT NULL,
+    `pid` int                                                           NULL DEFAULT NULL,
     `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`oid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of orderitem
 -- ----------------------------
+INSERT INTO `orderitem`
+VALUES (1, 135, '1');
+INSERT INTO `orderitem`
+VALUES (2, 133, '8800D33E3E7048A09BA78BAD5CBD5970');
+INSERT INTO `orderitem`
+VALUES (3, 134, '8800D33E3E7048A09BA78BAD5CBD5970');
+INSERT INTO `orderitem`
+VALUES (4, 151, '8800D33E3E7048A09BA78BAD5CBD5970');
+INSERT INTO `orderitem`
+VALUES (5, 151, '8800D33E3E7048A09BA78BAD5CBD5970');
+INSERT INTO `orderitem`
+VALUES (6, 154, '8800D33E3E7048A09BA78BAD5CBD5970');
 
 -- ----------------------------
 -- Table structure for product
@@ -80,20 +108,24 @@ CREATE TABLE `orderitem`
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product`
 (
-    `pid`    int NOT NULL AUTO_INCREMENT,
-    `pname`  varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `market_price` double NULL DEFAULT NULL,
-    `shop_price` double NULL DEFAULT NULL,
-    `pimage` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `pdate`  date NULL DEFAULT NULL,
-    `is_hot` int NULL DEFAULT NULL,
-    `pdesc`  varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `pflag`  int NULL DEFAULT NULL,
-    `cid`    varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `pid`          int                                                           NOT NULL AUTO_INCREMENT,
+    `pname`        varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `market_price` double                                                        NULL DEFAULT NULL,
+    `shop_price`   double                                                        NULL DEFAULT NULL,
+    `pimage`       varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `pdate`        date                                                          NULL DEFAULT NULL,
+    `is_hot`       int                                                           NULL DEFAULT NULL,
+    `pdesc`        varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `pflag`        int                                                           NULL DEFAULT NULL,
+    `cid`          varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
     PRIMARY KEY (`pid`) USING BTREE,
-    INDEX    `sfk_0001`(`cid` ASC) USING BTREE,
+    INDEX `sfk_0001` (`cid` ASC) USING BTREE,
     CONSTRAINT `sfk_0001` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 210
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product
@@ -315,45 +347,59 @@ VALUES (209, '咖啡', 15, 12, 'image/foods/classic_drink.png', '2024-01-01', 0,
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
-    `uid`       varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-    `username`  varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `password`  varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `name`      varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `email`     varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `telephone` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `birthday`  date NULL DEFAULT NULL,
-    `sex`       varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-    `state`     int NULL DEFAULT NULL,
-    `code`      varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `uid`        varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NOT NULL,
+    `username`   varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `password`   varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `name`       varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `email`      varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `telephone`  varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `birthday`   date                                                          NULL DEFAULT NULL,
+    `sex`        varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `state`      int                                                           NULL DEFAULT NULL,
+    `code`       varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NULL DEFAULT NULL,
+    `photo_path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户头像图片路径',
     PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user`
 VALUES ('04F3456401124DCDA35ABF0433BDE55C', 'imagetest', 'imagetest', 'imagetest', 'imagetest@imagetest.com',
-        '12345678', '1979-11-11', '0', 1, NULL);
+        '12345678', '1979-11-11', '0', 1, NULL, NULL);
 INSERT INTO `user`
-VALUES ('1', 'wutongyu', 'wutongyu', 'wutongyu', 'wutongyu@qzuie.edu.cn', '13721244948', '2004-07-03', '1', 1, '1');
+VALUES ('1', 'wutongyu', 'wutongyu', 'wutongyu', 'wutongyu@qzuie.edu.cn', '13721244948', '2004-07-03', '1', 1, '1',
+        NULL);
 INSERT INTO `user`
-VALUES ('1C2EB6BB966E41CD9EE30D5BA6548171', '111', '111', '111', '111@111.com', '111', '1111-11-11', '1', 1, NULL);
+VALUES ('11D5F2A53545474E8AE40985597397DE', 'www', 'www', 'www', 'www@www.com', '123456', '1944-11-11', '1', 1, NULL,
+        NULL);
 INSERT INTO `user`
-VALUES ('2', 'Xiaoming', 'xwuKzH4olLGFoOm', 'Carl', 'shixiaoming@qq.com', '14199683734', '2007-08-18', '0', 1, '0');
+VALUES ('1C2EB6BB966E41CD9EE30D5BA6548171', '111', '111', '111', '111@111.com', '111', '1111-11-11', '1', 1, NULL,
+        NULL);
+INSERT INTO `user`
+VALUES ('2', 'Xiaoming', 'xwuKzH4olLGFoOm', 'Carl', 'shixiaoming@qq.com', '14199683734', '2007-08-18', '0', 1, '0',
+        NULL);
 INSERT INTO `user`
 VALUES ('8800D33E3E7048A09BA78BAD5CBD5970', 'Steve5wutongyu6', 'rEfyFGrddqP59NQ', 'Steve5wutongyu6',
-        'Steve5wutongyu6@163.com', '13721244948', '2004-07-03', '1', 1, '1');
+        'Steve5wutongyu6@163.com', '13721244948', '2004-07-03', '1', 1, '1', NULL);
 INSERT INTO `user`
-VALUES ('DB58652DA5E54E7BAB43A02791A1A158', '123', '123', '123', '123@123.com', '123', '1954-11-11', '0', 1, NULL);
+VALUES ('AEE04F51C3704BC9AAA0E9F301E21CB8', '12345678', '12345678', '12345678', '12345678@qq.com', '12345678',
+        '1999-12-31', '0', 1, NULL, NULL);
 INSERT INTO `user`
-VALUES ('E708B46D611E48B1B4C694B37884D10B', 'test', 'test1', 'test', 't@t.com', '1234567', '2020-02-01', '1', 1, NULL);
+VALUES ('DB58652DA5E54E7BAB43A02791A1A158', '123', '123', '123', '123@123.com', '123', '1954-11-11', '0', 1, NULL,
+        NULL);
+INSERT INTO `user`
+VALUES ('E708B46D611E48B1B4C694B37884D10B', 'test', 'test1', 'test', 't@t.com', '1234567', '2020-02-01', '1', 1, NULL,
+        NULL);
 
 -- ----------------------------
 -- View structure for hotest_ham
 -- ----------------------------
 DROP VIEW IF EXISTS `hotest_ham`;
-CREATE
-ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `hotest_ham` AS
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `hotest_ham` AS
 select `product`.`pid`          AS `pid`,
        `product`.`pname`        AS `pname`,
        `product`.`market_price` AS `market_price`,
@@ -365,7 +411,7 @@ select `product`.`pid`          AS `pid`,
        `product`.`pflag`        AS `pflag`,
        `product`.`cid`          AS `cid`
 from `product`
-where ((`product`.`is_hot` = 1) and (`product`.`cid` = 1)) limit 4;
+where ((`product`.`is_hot` = 1) and (`product`.`cid` = 1))
+limit 4;
 
-SET
-FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1;

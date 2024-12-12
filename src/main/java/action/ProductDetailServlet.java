@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet(name = "ProductDetailServlet", value = "/ProductDetailServlet")
 public class ProductDetailServlet extends HttpServlet {
-    private ProductService productService = new ProductService();
+    private final ProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

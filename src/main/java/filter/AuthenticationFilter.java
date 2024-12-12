@@ -23,7 +23,7 @@ public class AuthenticationFilter implements Filter {
         String requestURI = httpRequest.getRequestURI();
 
         // 允许访问的URL列表
-        String[] allowedURIs = {"index.jsp","/login.jsp", "/LoginServlet", "/register.jsp", "/register", "/updateuser.jsp", "/UpdateUserServlet", "/LogOutServlet", "/error.jsp"};
+        String[] allowedURIs = {"index.jsp", "/login.jsp", "/LoginServlet", "/register.jsp", "/register", "/updateuser.jsp", "/UpdateUserServlet", "/LogOutServlet", "/error.jsp"};
 
         boolean allowedRequest = false;
 

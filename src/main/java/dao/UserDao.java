@@ -29,7 +29,7 @@ public class UserDao {
                 String sex = rs.getString("sex");
                 Date birthday = rs.getDate("birthday");
                 String telephone = rs.getString("telephone");
-                String photo = rs.getString("photo");
+                String photo_path = rs.getString("photo_path");
                 findu = new User();
                 findu.setUid(uid);
                 findu.setUsername(username);
@@ -39,7 +39,8 @@ public class UserDao {
                 findu.setSex(sex);
                 findu.setBirthday(birthday);
                 findu.setTelephone(telephone);
-                findu.setPhoto(photo);
+                findu.setPhoto_path(photo_path);
+                System.out.println("findu:" + findu);
             }
 
         } catch (Exception e) {
@@ -57,7 +58,7 @@ public class UserDao {
     public boolean save(User user) {
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO user(uid, username, password, name, email, telephone, sex, birthday, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user(uid, username, password, name, email, telephone, sex, birthday, state, photo_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getUid());
@@ -69,7 +70,8 @@ public class UserDao {
             ps.setString(7, user.getSex());
             ps.setDate(8, new java.sql.Date(user.getBirthday().getTime()));
             ps.setInt(9, user.getState());
-
+            ps.setString(10, user.getPhoto_path());
+            System.out.println("插入新用户数据：" + ps);
             int rows = ps.executeUpdate();
 
             return rows > 0;
@@ -83,7 +85,7 @@ public class UserDao {
 
     // 更新用户信息的方法
     public boolean updateUser(User user) {
-        String sql = "UPDATE user SET name = ?,password= ? ,email = ?, telephone = ?, birthday = ?, sex = ? WHERE username = ?";
+        String sql = "UPDATE user SET name = ?, password = ?, email = ?, telephone = ?, birthday = ?, sex = ?, photo_path = ? WHERE username = ?";
 
         try {
             Connection conn = DBUtil.getConnection();
@@ -96,7 +98,8 @@ public class UserDao {
             pstmt.setString(4, user.getTelephone());
             pstmt.setDate(5, new Date(user.getBirthday().getTime()));
             pstmt.setString(6, user.getSex());
-            pstmt.setString(7, user.getUsername());
+            pstmt.setString(7, user.getPhoto_path());
+            pstmt.setString(8, user.getUsername());
 
             int rowsAffected = pstmt.executeUpdate();
             System.out.println("更新行数: " + rowsAffected + pstmt);
@@ -111,5 +114,6 @@ public class UserDao {
             return false; // 更新失败
         }
     }
+
 
 }

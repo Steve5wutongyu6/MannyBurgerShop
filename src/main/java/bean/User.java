@@ -3,7 +3,7 @@ package bean;
 import java.util.Date;
 
 public class User {
-    private String uid, username, password, name, email, telephone, sex, photo;
+    private String uid, username, password, name, email, telephone, sex, photo, photo_path;
     private Date birthday;
     private int state;
 
@@ -11,7 +11,7 @@ public class User {
         super();
     }
 
-    public User(String uid, String username, String password, String name, String email, String telephone, String sex, String photo, Date birthday, int state) {
+    public User(String uid, String username, String password, String name, String email, String telephone, String sex, String photo, String photo_path, Date birthday, int state) {
         this.uid = uid;
         this.username = username;
         this.password = password;
@@ -20,13 +20,30 @@ public class User {
         this.telephone = telephone;
         this.sex = sex;
         this.photo = photo;
+        this.photo_path = photo_path;
         this.birthday = birthday;
         this.state = state;
     }
 
-
     public User(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid='" + uid + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", photo='" + photo + '\'' +
+                ", photo_path='" + photo_path + '\'' +
+                ", birthday=" + birthday +
+                ", state=" + state +
+                '}';
     }
 
     public String getUid() {
@@ -93,6 +110,14 @@ public class User {
         this.photo = photo;
     }
 
+    public String getPhoto_path() {
+        return photo_path;
+    }
+
+    public void setPhoto_path(String photo_path) {
+        this.photo_path = photo_path;
+    }
+
     public Date getBirthday() {
         return birthday;
     }
@@ -108,6 +133,4 @@ public class User {
     public void setState(int state) {
         this.state = state;
     }
-
-
 }

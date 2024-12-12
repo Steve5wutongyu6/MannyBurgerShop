@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class UploadFileUtil {
     private Part part; // 包含文件的part
@@ -50,7 +51,7 @@ public class UploadFileUtil {
         // }
         try {
             InputStream is = part.getInputStream();
-            String filename = new String(getFilename().getBytes(), "UTF-8");
+            String filename = new String(getFilename().getBytes(), StandardCharsets.UTF_8);
             File file = new File(path);
             if (!file.exists() || !file.isDirectory()) {
                 file.mkdir();

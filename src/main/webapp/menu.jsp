@@ -60,6 +60,12 @@
     <div class="metro-tile">
         <a href="${pageContext.request.contextPath}/SelectProductByCidServlet">热门推荐</a>
     </div>
+    <div class="metro-tile">
+        <a href="${pageContext.request.contextPath}/LogOutServlet">登出</a>
+    </div>
+    <div class="metro-tile">
+        <a href="${pageContext.request.contextPath}/register.jsp">邀请新用户</a>
+    </div>
 </div>
 </body>
 </html>

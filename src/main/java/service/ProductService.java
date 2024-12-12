@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
-    private ProductDAO productDAO = new ProductDAO();
+    private final ProductDAO productDAO = new ProductDAO();
 
     public List<Product> getAllProducts() {
         return productDAO.getAllProducts();

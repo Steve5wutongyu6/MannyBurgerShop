@@ -16,8 +16,8 @@ import java.sql.Timestamp;
 
 @WebServlet(name = "AddToCartServlet", value = "/AddToCartServlet")
 public class AddToCartServlet extends HttpServlet {
-    private OrderItemDAO orderItemDAO = new OrderItemDAO();
-    private CartDAO cartDAO = new CartDAO();
+    private final OrderItemDAO orderItemDAO = new OrderItemDAO();
+    private final CartDAO cartDAO = new CartDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

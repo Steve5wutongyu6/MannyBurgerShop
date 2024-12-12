@@ -59,6 +59,11 @@ public class RegisterServlet extends HttpServlet {
                             case "birthday":
                                 birthdayStr = item.getString("UTF-8");
                                 break;
+                            case "photo":
+                                photoPath = item.getString("UTF-8");
+                                if (photoPath.isEmpty()) {
+                                    photoPath = "D:/JavaWeb/image/userimage/default.jpg";
+                                }
                         }
                     } else {
                         // 处理文件上传
@@ -73,10 +78,12 @@ public class RegisterServlet extends HttpServlet {
                             File directory = new File("D:/JavaWeb/image/userimage/");
                             if (!directory.exists()) {
                                 directory.mkdirs(); // 创建所有必要的父目录
+                                System.out.println("目录创建成功！");
                             }
 
                             item.write(uploadedFile);
                             photoPath = "D:/JavaWeb/image/userimage/" + fileName;
+                            System.out.println("文件上传成功！" + filePath);
                         }
                     }
                 }
@@ -98,7 +105,7 @@ public class RegisterServlet extends HttpServlet {
                 user.setSex(sex);
                 user.setBirthday(birthday);
                 user.setState(1); // 默认状态为1
-                user.setPhoto(photoPath); // 设置图片路径
+                user.setPhoto_path(photoPath); // 设置图片路径
 
                 UserDao userDao = new UserDao();
                 boolean result = userDao.save(user);
