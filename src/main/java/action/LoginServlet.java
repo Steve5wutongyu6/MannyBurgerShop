@@ -119,7 +119,7 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(tokenCookie);
 
                 response.sendRedirect("MenuServlet");
-                System.out.println("登录成功" + "重定向到MenuServlet");
+                System.out.println("登录成功"+"重定向到MenuServlet");
             } else {
                 // 登录失败
                 request.setAttribute("message", "Invalid username or password.");
