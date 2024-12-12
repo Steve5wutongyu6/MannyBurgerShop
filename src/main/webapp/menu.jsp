@@ -10,6 +10,7 @@
 <head>
     <title>主菜单</title>
     <style>
+        /* 之前的样式代码 */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f3f3f3;
@@ -20,6 +21,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .metro-menu {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -27,6 +29,7 @@
             width: 80%;
             max-width: 600px;
         }
+
         .metro-tile {
             background-color: #00a8e6;
             color: white;
@@ -36,17 +39,43 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .metro-tile:hover {
             background-color: #007acc;
         }
+
         .metro-tile a {
             color: white;
             text-decoration: none;
             font-size: 18px;
         }
+
+        /* 添加的样式 */
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+        }
+
+        .header img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
+<div class="header">
+    <img src="${photoPath}" alt="User Photo">
+    <span>欢迎光临！${username}</span>
+</div>
+
+
 <div class="metro-menu">
     <div class="metro-tile">
         <a href="${pageContext.request.contextPath}/SelectAllProductByPidAndCidServlet">选择菜品</a>
