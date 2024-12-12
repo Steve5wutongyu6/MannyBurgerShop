@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
                 tokenCookie.setMaxAge(30 * 60);
                 response.addCookie(tokenCookie);
 
-                response.sendRedirect("ProductListServlet");
+                response.sendRedirect("MenuServlet");
             } else {
                 // 登录失败
                 request.setAttribute("message", "Invalid username or password.");
