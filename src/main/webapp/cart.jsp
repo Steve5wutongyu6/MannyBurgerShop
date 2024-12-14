@@ -17,8 +17,6 @@
 <table border="1">
     <tr>
         <th>商品名称</th>
-        <th>市场价</th>
-        <th>商城价</th>
         <th>操作</th>
     </tr>
     <%
@@ -28,10 +26,6 @@
     %>
     <tr>
         <td><%= product.getPname() %>
-        </td>
-        <td><%= product.getMarketPrice() %>
-        </td>
-        <td><%= product.getShopPrice() %>
         </td>
         <td><a href="RemoveFromCartServlet?pid=<%= product.getPid() %>">移除</a></td>
     </tr>

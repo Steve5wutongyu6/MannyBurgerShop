@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Cart {
+public class Order {
     private String oid;
     private Date ordertime;
     private double total;
@@ -15,11 +15,9 @@ public class Cart {
     private String uid;
     private List<OrderItem> list = new ArrayList<OrderItem>();
 
-    public Cart() {
+    public Order(String oid, Date ordertime, double total, Integer state, String address, String name, String telephone,
+                 String uid, List<OrderItem> list) {
         super();
-    }
-
-    public Cart(String oid, Date ordertime, double total, Integer state, String address, String name, String telephone, String uid, List<OrderItem> list) {
         this.oid = oid;
         this.ordertime = ordertime;
         this.total = total;
@@ -31,19 +29,8 @@ public class Cart {
         this.list = list;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "oid='" + oid + '\'' +
-                ", ordertime=" + ordertime +
-                ", total=" + total +
-                ", state=" + state +
-                ", address='" + address + '\'' +
-                ", name='" + name + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", uid='" + uid + '\'' +
-                ", list=" + list +
-                '}';
+    public Order() {
+        super();
     }
 
     public String getOid() {
@@ -117,4 +104,11 @@ public class Cart {
     public void setList(List<OrderItem> list) {
         this.list = list;
     }
+
+    @Override
+    public String toString() {
+        return "Order [oid=" + oid + ", ordertime=" + ordertime + ", total=" + total + ", state=" + state + ", address="
+                + address + ", name=" + name + ", telephone=" + telephone + ", uid=" + uid + ", list=" + list + "]";
+    }
+
 }

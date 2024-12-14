@@ -81,7 +81,7 @@
         <a href="${pageContext.request.contextPath}/SelectAllProductByPidAndCidServlet">选择菜品</a>
     </div>
     <div class="metro-tile">
-        <a href="${pageContext.request.contextPath}/SelectItemsInCartServlet?uid=1">购物车</a>
+        <a href="${pageContext.request.contextPath}/CartServlet">购物车</a>
     </div>
     <div class="metro-tile">
         <a href="${pageContext.request.contextPath}/updateUser?username=user1">修改用户信息</a>

@@ -11,7 +11,7 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 12/12/2024 13:18:43
+ Date: 14/12/2024 17:18:46
 */
 
 SET NAMES utf8mb4;
@@ -23,26 +23,47 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`
 (
-    `cid`  int                                                           NOT NULL AUTO_INCREMENT,
-    `uid`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '下单用户ID',
-    `oid`  int                                                           NULL DEFAULT NULL COMMENT '对应orderItemID',
-    `time` datetime                                                      NULL DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`cid`) USING BTREE
+    `oid`       varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `ordertime` datetime                                                     NULL DEFAULT NULL,
+    `total`     double                                                       NULL DEFAULT NULL,
+    `state`     int                                                          NULL DEFAULT NULL,
+    `uid`       varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    PRIMARY KEY (`oid`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_general_ci
-  ROW_FORMAT = Dynamic;
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
 INSERT INTO `cart`
-VALUES (1, '1', 1, '2024-12-10 17:52:35');
-INSERT INTO `cart`
-VALUES (2, '8800D33E3E7048A09BA78BAD5CBD5970', 2, '2024-12-10 18:01:35');
-INSERT INTO `cart`
-VALUES (3, '1', NULL, '2024-12-10 18:01:35');
+VALUES ('E4E65C536C8D41789CA2D0C9539F811F', '2024-12-14 17:17:35', 0, 0, '8800D33E3E7048A09BA78BAD5CBD5970');
+
+-- ----------------------------
+-- Table structure for cartitem
+-- ----------------------------
+DROP TABLE IF EXISTS `cartitem`;
+CREATE TABLE `cartitem`
+(
+    `itemid`   varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `count`    int                                                          NULL DEFAULT NULL,
+    `subtotal` double                                                       NULL DEFAULT NULL,
+    `pid`      int                                                          NULL DEFAULT NULL,
+    `oid`      varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    PRIMARY KEY (`itemid`) USING BTREE,
+    INDEX `fk_0001` (`pid` ASC) USING BTREE,
+    INDEX `fk_0002` (`oid` ASC) USING BTREE,
+    CONSTRAINT `fk_0001` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `fk_0002` FOREIGN KEY (`oid`) REFERENCES `cart` (`oid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of cartitem
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for category
@@ -76,31 +97,48 @@ VALUES ('4', '饮品');
 DROP TABLE IF EXISTS `orderitem`;
 CREATE TABLE `orderitem`
 (
-    `oid` int                                                           NOT NULL,
-    `pid` int                                                           NULL DEFAULT NULL,
-    `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-    PRIMARY KEY (`oid`) USING BTREE
+    `itemid`   varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `count`    int                                                          NULL DEFAULT NULL,
+    `subtotal` double                                                       NULL DEFAULT NULL,
+    `pid`      int                                                          NULL DEFAULT NULL,
+    `oid`      varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    PRIMARY KEY (`itemid`) USING BTREE,
+    INDEX `fk_0001` (`pid` ASC) USING BTREE,
+    INDEX `fk_0002` (`oid` ASC) USING BTREE,
+    CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `orderitem_ibfk_2` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 7
-  CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_general_ci
-  ROW_FORMAT = Dynamic;
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orderitem
 -- ----------------------------
-INSERT INTO `orderitem`
-VALUES (1, 135, '1');
-INSERT INTO `orderitem`
-VALUES (2, 133, '8800D33E3E7048A09BA78BAD5CBD5970');
-INSERT INTO `orderitem`
-VALUES (3, 134, '8800D33E3E7048A09BA78BAD5CBD5970');
-INSERT INTO `orderitem`
-VALUES (4, 151, '8800D33E3E7048A09BA78BAD5CBD5970');
-INSERT INTO `orderitem`
-VALUES (5, 151, '8800D33E3E7048A09BA78BAD5CBD5970');
-INSERT INTO `orderitem`
-VALUES (6, 154, '8800D33E3E7048A09BA78BAD5CBD5970');
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`
+(
+    `oid`       varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `ordertime` datetime                                                     NULL DEFAULT NULL,
+    `total`     double                                                       NULL DEFAULT NULL,
+    `state`     int                                                          NULL DEFAULT NULL,
+    `address`   varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `name`      varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `telephone` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    `uid`       varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+    PRIMARY KEY (`oid`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb3
+  COLLATE = utf8mb3_general_ci
+  ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for product
@@ -368,32 +406,17 @@ CREATE TABLE `user`
 -- Records of user
 -- ----------------------------
 INSERT INTO `user`
-VALUES ('04F3456401124DCDA35ABF0433BDE55C', 'imagetest', 'imagetest', 'imagetest', 'imagetest@imagetest.com',
-        '12345678', '1979-11-11', '0', 1, NULL, NULL);
-INSERT INTO `user`
 VALUES ('1', 'wutongyu', 'wutongyu', 'wutongyu', 'wutongyu@qzuie.edu.cn', '13721244948', '2004-07-03', '1', 1, '1',
-        NULL);
-INSERT INTO `user`
-VALUES ('11D5F2A53545474E8AE40985597397DE', 'www', 'www', 'www', 'www@www.com', '123456', '1944-11-11', '1', 1, NULL,
-        NULL);
-INSERT INTO `user`
-VALUES ('1C2EB6BB966E41CD9EE30D5BA6548171', '111', '111', '111', '111@111.com', '111', '1111-11-11', '1', 1, NULL,
-        NULL);
-INSERT INTO `user`
-VALUES ('2', 'Xiaoming', 'xwuKzH4olLGFoOm', 'Carl', 'shixiaoming@qq.com', '14199683734', '2007-08-18', '0', 1, '0',
-        NULL);
+        'D:/JavaWeb/image/userimage/AVATAR.png');
 INSERT INTO `user`
 VALUES ('8800D33E3E7048A09BA78BAD5CBD5970', 'Steve5wutongyu6', 'rEfyFGrddqP59NQ', 'Steve5wutongyu6',
-        'Steve5wutongyu6@163.com', '13721244948', '2004-07-03', '1', 1, '1', NULL);
+        'Steve5wutongyu6@163.com', '13721244948', '2004-07-03', '1', 1, '1', 'D:/JavaWeb/image/userimage/AVATAR1.png');
 INSERT INTO `user`
-VALUES ('AEE04F51C3704BC9AAA0E9F301E21CB8', '12345678', '12345678', '12345678', '12345678@qq.com', '12345678',
-        '1999-12-31', '0', 1, NULL, NULL);
+VALUES ('A7650A751F0C46D78907A8F9C19F422D', 'qqqqq', 'qqqqq', 'qqqqq', 'qqqqq@qq.com', '12345', '1949-11-12', '1', 1,
+        NULL, 'D:/JavaWeb/image/userimage/refresh.png');
 INSERT INTO `user`
-VALUES ('DB58652DA5E54E7BAB43A02791A1A158', '123', '123', '123', '123@123.com', '123', '1954-11-11', '0', 1, NULL,
-        NULL);
-INSERT INTO `user`
-VALUES ('E708B46D611E48B1B4C694B37884D10B', 'test', 'test1', 'test', 't@t.com', '1234567', '2020-02-01', '1', 1, NULL,
-        NULL);
+VALUES ('F9A5C84EC6B247A799F869032D7530A2', '231321312A', '231321312A', '231321312A', '231321312A@231321312A.com',
+        '231321312', '1977-11-22', '0', 1, NULL, 'D:/JavaWeb/image/userimage/unnamed (1).jpg');
 
 -- ----------------------------
 -- View structure for hotest_ham
