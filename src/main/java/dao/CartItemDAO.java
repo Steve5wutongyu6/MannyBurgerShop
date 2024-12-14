@@ -121,4 +121,17 @@ public class CartItemDAO {
         }
         return cartItems;
     }
+
+    public void clearCartByUid(String uid) {
+        // 清空购物车（清空给定uid的cart和cartitem）
+        String sql = "DELETE FROM cart WHERE uid = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, uid);
+            System.out.println(pstmt.toString()); // 打印SQL语句
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

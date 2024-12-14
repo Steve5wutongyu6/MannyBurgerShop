@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="css/tablecss.css">
 </head>
 <body>
 <h1>购物车</h1>
@@ -41,6 +42,9 @@
     %>
 </table>
 <h2>总价: <%= request.getAttribute("totalPrice") %> 元</h2>
-<a href="ProductListServlet">继续购物</a>
+<div class="buttons-container">
+    <a href="ProductListServlet">继续购物</a>
+    <a href="SettlementServlet">结算</a>
+</div>
 </body>
 </html>

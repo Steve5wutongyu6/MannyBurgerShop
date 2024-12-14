@@ -95,6 +95,12 @@
     <div class="metro-tile">
         <a href="${pageContext.request.contextPath}/register.jsp">邀请新用户</a>
     </div>
+    <div class="metro-tile">
+        <a href="${pageContext.request.contextPath}/AllOrderServlet">我的订单</a>
+    </div>
+    <div class="metro-tile">
+        <a href="${pageContext.request.contextPath}/ProductListServlet">价目表</a>
+    </div>
 </div>
 </body>
 </html>

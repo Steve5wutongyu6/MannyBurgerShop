@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>菜单</title>
-    <link rel="stylesheet" type="text/css" href="css/productlist.css">
+    <link rel="stylesheet" type="text/css" href="css/tablecss.css">
 </head>
 <body>
 <h1>菜单</h1>

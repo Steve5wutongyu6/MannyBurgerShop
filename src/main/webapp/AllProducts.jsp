@@ -51,6 +51,8 @@
             <a href="SelectAllProductByPidAndCidServlet?cid=${activeCid}&pageNo=${pageNo + 1}">下一页</a>
         </c:if>
     </div>
+
+    <button type="button"><span><a href="CartServlet">我挑完了</a></span></button>
 </div>
 
 </body>
