@@ -124,14 +124,33 @@ public class CartItemDAO {
 
     public void clearCartByUid(String uid) {
         // 清空购物车（清空给定uid的cart和cartitem）
-        String sql = "DELETE FROM cart WHERE uid = ?";
+        String sqlGetOids = "SELECT oid FROM cart WHERE uid = ?";
+        String sqlDeleteCart = "DELETE FROM cart WHERE uid = ?";
+        String sqlDeleteCartItems = "DELETE FROM cartitem WHERE oid = ?";
+
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, uid);
-            System.out.println(pstmt.toString()); // 打印SQL语句
-            pstmt.executeUpdate();
+             PreparedStatement pstmtGetOids = conn.prepareStatement(sqlGetOids);
+             PreparedStatement pstmtDeleteCart = conn.prepareStatement(sqlDeleteCart);
+             PreparedStatement pstmtDeleteCartItems = conn.prepareStatement(sqlDeleteCartItems)) {
+
+            // 获取所有与uid对应的oid
+            pstmtGetOids.setString(1, uid);
+            ResultSet rs = pstmtGetOids.executeQuery();
+
+            // 删除cartitem表中对应的oid项
+            while (rs.next()) {
+                String oid = rs.getString("oid");
+                pstmtDeleteCartItems.setString(1, oid);
+                pstmtDeleteCartItems.executeUpdate();
+            }
+
+            // 删除cart表中对应的uid项
+            pstmtDeleteCart.setString(1, uid);
+            pstmtDeleteCart.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

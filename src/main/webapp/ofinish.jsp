@@ -15,9 +15,11 @@
             text-align: center;
             margin-top: 50px;
         }
+
         h1 {
             color: green;
         }
+
         p {
             font-size: 18px;
         }

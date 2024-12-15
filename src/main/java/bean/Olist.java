@@ -10,6 +10,13 @@ public class Olist {
         super();
     }
 
+    public Olist(String listid, String uid, String time, String item) {
+        this.listid = listid;
+        this.uid = uid;
+        this.time = time;
+        this.item = item;
+    }
+
     @Override
     public String toString() {
         return "Olist{" +
@@ -49,13 +56,6 @@ public class Olist {
     }
 
     public void setItem(String item) {
-        this.item = item;
-    }
-
-    public Olist(String listid, String uid, String time, String item) {
-        this.listid = listid;
-        this.uid = uid;
-        this.time = time;
         this.item = item;
     }
 }

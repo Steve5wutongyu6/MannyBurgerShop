@@ -43,7 +43,7 @@
 </table>
 <h2>总价: <%= request.getAttribute("totalPrice") %> 元</h2>
 <div class="buttons-container">
-    <a href="ProductListServlet">继续购物</a>
+    <a href="SelectAllProductByPidAndCidServlet">继续购物</a>
     <a href="SettlementServlet">结算</a>
 </div>
 </body>

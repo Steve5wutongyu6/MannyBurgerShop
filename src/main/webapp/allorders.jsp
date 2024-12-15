@@ -15,25 +15,31 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
+
         a {
             text-decoration: none;
             color: blue;
         }
+
         a:hover {
             text-decoration: underline;
         }

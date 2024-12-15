@@ -1,6 +1,5 @@
 package dao;
 
-import bean.Order;
 import utils.DBUtil;
 
 import java.sql.Connection;
@@ -12,10 +11,10 @@ public class OrderDAO {
     /**
      * 保存订单信息到数据库
      *
-     * @param uid   用户ID
+     * @param uid    用户ID
      * @param listid 订单ID
-     * @param time  下单时间
-     * @param item  商品信息的JSON字符串
+     * @param time   下单时间
+     * @param item   商品信息的JSON字符串
      * @throws SQLException 如果发生SQL异常
      */
     public void saveOrder(String uid, String listid, String time, String item) throws SQLException {
