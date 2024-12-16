@@ -1,4 +1,4 @@
-package servlet;
+package action;
 
 import bean.CartItem;
 import bean.Product;
